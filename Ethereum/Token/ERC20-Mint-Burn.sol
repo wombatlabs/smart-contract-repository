@@ -264,7 +264,7 @@ contract Blockinator is ERC20Detailed, Ownable {
     return true;
   }
 
-  function _burn(address account, uint256 amount) public {
+  function _burn(address account, uint256 amount) internal {
     require(account != 0);
     require(amount <= _balances[account]);
 
@@ -273,7 +273,7 @@ contract Blockinator is ERC20Detailed, Ownable {
     emit Transfer(account, address(0), amount);
   }
 
-  function _burnFrom(address account, uint256 amount) public {
+  function _burnFrom(address account, uint256 amount) internal {
     require(amount <= _allowed[account][msg.sender]);
 
     _allowed[account][msg.sender] = _allowed[account][msg.sender].sub(
