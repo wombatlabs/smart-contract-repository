@@ -110,7 +110,7 @@ contract Ownable {
   }
 }
 
-contract ERC20Detailed is ITRC20 {
+contract ERC20Detailed is IERC20 {
   string private _name;
   string private _symbol;
   uint8 private _decimals;
