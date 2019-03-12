@@ -7,7 +7,6 @@ contract ApproveAndCallFallBack {
 contract TestTokenForTron
 {
     address owner;
-    // bool public canBurn;
     uint8 public decimals = 6;
     uint256 public totalSupply = 200000000 * (10 ** uint256(decimals));
     string public name = "TRONTest";
@@ -22,7 +21,6 @@ contract TestTokenForTron
 
     constructor() public {
         owner = msg.sender;
-        // canBurn = false;
         balances[owner] = totalSupply;
     }
 
