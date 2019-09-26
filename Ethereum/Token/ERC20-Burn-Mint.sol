@@ -5,7 +5,7 @@ interface tokenRecipient { function receiveApproval (address _from, uint256 _val
 contract owned {
   address public owner;
 
-  function owned () {
+  constructor () {
     owner = msg.sender;
   }
 
@@ -19,11 +19,11 @@ contract owned {
   }
 }
 
-contract ERC20Token is owned {
+contract BlocktorialToken is owned {
 
   string public name;
   string public symbol;
-  uint8 public decimals = 2;
+  uint8 public decimals;
   uint256 public totalSupply;
 
   mapping (address => uint256) public balanceOf;
@@ -33,15 +33,12 @@ contract ERC20Token is owned {
   event Approval ( address indexed _owner, address indexed _spender, uint256 _value );
   event Burn ( address indexed from, uint256 value );
 
-  constructor(
-    uint256 initialSupply,
-    string tokenName,
-    string tokenSymbol
-  ) public{
-    totalSupply = initialSupply*10**uint256(decimals);
+  constructor() public{
+    name = "Blocktorial Token";
+    symbol = "BTT";
+    decimals = 18;
+    totalSupply = 8000000000000; // 80 Billion
     balanceOf[msg.sender] = totalSupply;
-    name = tokenName;
-    symbol = tokenSymbol;
   }
 
 
