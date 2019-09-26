@@ -41,7 +41,7 @@ contract ERC20Token is owned {
   constructor(
     uint256 initialSupply,
     string tokenName,
-    string token symbol
+    string tokenSymbol
   ) public{
     totalSupply = initialSupply*10**uint256(decimals);
     balanceOf[msg.sender] = totalSupply;
