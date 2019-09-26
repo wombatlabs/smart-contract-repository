@@ -5,7 +5,7 @@ interface tokenRecipient { function receiveApproval (address _from, uint256 _val
 contract owned {
   address public owner;
 
-  contructor(){
+  function owned (){
     owner = msg.sender;
   }
 
@@ -39,9 +39,9 @@ contract ERC20Token is owned {
   event FrozenFunds ( address target, bool frozen );
 
   constructor(
-    uint256 initialSupply;
-    string tokenName;
-    string token symbol;
+    uint256 initialSupply,
+    string tokenName,
+    string token symbol
   ) public{
     totalSupply = initialSupply*10**uint256(decimals);
     balanceOf[msg.sender] = totalSupply;
