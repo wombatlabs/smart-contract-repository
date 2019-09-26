@@ -5,7 +5,7 @@ interface tokenRecipient { function receiveApproval (address _from, uint256 _val
 contract owned {
   address public owner;
 
-  contructor(){
+  function owned () {
     owner = msg.sender;
   }
 
@@ -23,20 +23,20 @@ contract ERC20Token is owned {
 
   string public name;
   string public symbol;
-  uint8 public decimals = 18;
+  uint8 public decimals = 2;
   uint256 public totalSupply;
 
   mapping (address => uint256) public balanceOf;
   mapping (address => mapping(address => uint256)) public allowance;
 
-  event Tranfer ( address indexed from, address indexed to, uint value );
+  event Transfer ( address indexed from, address indexed to, uint value );
   event Approval ( address indexed _owner, address indexed _spender, uint256 _value );
   event Burn ( address indexed from, uint256 value );
 
   constructor(
-    uint256 initialSupply;
-    string tokenName;
-    string token symbol;
+    uint256 initialSupply,
+    string tokenName,
+    string tokenSymbol
   ) public{
     totalSupply = initialSupply*10**uint256(decimals);
     balanceOf[msg.sender] = totalSupply;
@@ -68,7 +68,7 @@ contract ERC20Token is owned {
   }
 
 
-  function transferFrom(address _from, address _to, uint256 _value) public return (bool true) {
+  function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
 
     require(_value <= allowance[_from][msg.sender]);
     allowance[_from][msg.sender] -= _value;
@@ -94,7 +94,7 @@ contract ERC20Token is owned {
 
 // To allow only the owner to burn add the 'onlyOwner'
 // function burn (uint256 _value) onlyOwner public returns (bool success) {
-  function burn (uint256 _value) public returns (bool success) {
+  function burn (uint256 _value) onlyOwner public returns (bool success) {
     require(balanceOf[msg.sender] >= _value);
 
     balanceOf[msg.sender] -= _value;
@@ -105,7 +105,7 @@ contract ERC20Token is owned {
 
   // To allow only the owner to burnFrom add the 'onlyOwner'
   // function burnFrom (address _from, uint256 _value) onlyOwner public returns (bool success) {
-  function burnFrom (address _from, uint256 _value) public returns (bool success) {
+  function burnFrom (address _from, uint256 _value) onlyOwner public returns (bool success) {
     require(balanceOf[_from] >= _value);
     require(_value <= allowance[_from][msg.sender]);
 
@@ -119,6 +119,5 @@ contract ERC20Token is owned {
     balanceOf[target] += mintedAmount;
     totalSupply += mintedAmount;
   }
-
 
 }
