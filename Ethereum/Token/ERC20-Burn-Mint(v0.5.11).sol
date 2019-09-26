@@ -34,10 +34,10 @@ contract BharatCoin is owned {
   event Burn ( address indexed from, uint256 value );
 
   constructor() public{
-    name = "Bharatcoin";
-    symbol = "BCS";
-    decimals = 2;
-    totalSupply = 3000000000000; // 30 Billion
+    name = "Blocktorial Token";
+    symbol = "BTT";
+    decimals = 18;
+    totalSupply = 80000000000000000000000000000; // 80 Billion
     balanceOf[msg.sender] = totalSupply;
   }
 
