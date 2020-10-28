@@ -1,11 +1,11 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.11;
 
-interface tokenRecipient { function receiveApproval (address _from, uint256 _value, address _token, bytes _extradata) external; }
+interface tokenRecipient { function receiveApproval (address _from, uint256 _value, address _token, bytes calldata _extradata) external; }
 
 contract owned {
   address public owner;
 
-  constructor () {
+  constructor () public {
     owner = msg.sender;
   }
 
@@ -14,7 +14,7 @@ contract owned {
     _;
   }
 
-  function transferOwnership (address newOwner) onlyOwner {
+  function transferOwnership (address newOwner) onlyOwner public {
      owner = newOwner;
   }
 }
@@ -37,14 +37,14 @@ contract BlocktorialToken is owned {
     name = "Blocktorial Token";
     symbol = "BTT";
     decimals = 18;
-    totalSupply = 8000000000000; // 80 Billion
+    totalSupply = 80000000000000000000000000000; // 80 Billion
     balanceOf[msg.sender] = totalSupply;
   }
 
 
   function _transfer(address _from, address _to, uint _value) internal {
 
-    require(_to != 0x0);
+    require(_to != address(0));
     require(balanceOf[_from] >= _value);
     require(balanceOf[_to] + _value >= balanceOf[_to]);
 
@@ -70,6 +70,7 @@ contract BlocktorialToken is owned {
     require(_value <= allowance[_from][msg.sender]);
     allowance[_from][msg.sender] -= _value;
     _transfer(_from, _to, _value);
+    return true;
   }
 
 
@@ -80,11 +81,11 @@ contract BlocktorialToken is owned {
   }
 
 
-  function approveAndCall(address _spender, uint256 _value, bytes _extradata) public returns (bool success) {
+  function approveAndCall(address _spender, uint256 _value, bytes memory _extradata) public returns (bool success) {
     tokenRecipient spender = tokenRecipient(_spender);
 
     if (approve(_spender, _value)) {
-      spender.receiveApproval(msg.sender, _value, this, _extradata);
+      spender.receiveApproval(msg.sender, _value, address(this), _extradata);
       return true;
     }
   }
@@ -112,7 +113,7 @@ contract BlocktorialToken is owned {
     return true;
   }
 
-  function mintToken (address target, uint256 mintedAmount) onlyOwner {
+  function mintToken (address target, uint256 mintedAmount) onlyOwner public {
     balanceOf[target] += mintedAmount;
     totalSupply += mintedAmount;
   }

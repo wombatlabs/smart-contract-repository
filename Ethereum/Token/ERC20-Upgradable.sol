@@ -1,14 +1,14 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.5.10;
 
 contract ERC20 {
-    function totalSupply() public constant returns (uint256);
-    function balanceOf(address tokenOwner) public constant returns (uint256);
-    function allowance(address tokenOwner, address spender) public constant returns (uint256);
+    function totalSupply() public view returns (uint256);
+    function balanceOf(address tokenOwner) public view returns (uint256);
+    function allowance(address tokenOwner, address spender) public view returns (uint256);
     function transfer(address to, uint tokens) public returns (bool);
     function approve(address spender, uint tokens) public returns (bool);
     function transferFrom(address from, address to, uint tokens) public returns (bool);
-    function name() public returns (string);
-    function symbol() public returns (string);
+    function name() public returns (string memory);
+    function symbol() public returns (string memory);
     function decimals() public returns (uint8);
     function stopped() public returns (bool);
 
