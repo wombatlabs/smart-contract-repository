@@ -316,7 +316,7 @@ contract Ownable is Context {
     }
 }
 
-contract ERC20 is Ownable, Context, IERC20 {
+contract ERC20 is Ownable, IERC20 {
     using SafeMath for uint256;
 
     mapping (address => uint256) private _balances;
